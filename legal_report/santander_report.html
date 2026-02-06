@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parecer Técnico - Martinhago Advocacia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #FFFFFF;
+            color: #2C3E50;
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 50px;
+            line-height: 1.6;
+        }
+
+        .header-brand {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 14pt;
+            color: #C0A062;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #C0A062;
+            padding-bottom: 10px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 20pt;
+            color: #1A2530;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 12pt;
+            color: #7F8C8D;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        h2 {
+            margin-top: 40px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16pt;
+            color: #C0A062;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 13pt;
+            color: #34495E;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 15px;
+            font-size: 11pt;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 10pt;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        th {
+            background-color: #2C3E50;
+            color: #FFFFFF;
+            padding: 12px 15px;
+            text-align: left;
+            font-family: 'Playfair Display', serif;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ECF0F1;
+            color: #2C3E50;
+        }
+
+        tr:nth-child(even) {
+            background-color: #FAFAFA;
+        }
+
+        tr:hover {
+            background-color: #F4F6F6;
+        }
+
+        .highlight-value {
+            font-weight: bold;
+            color: #C0A062;
+        }
+
+        /* Specific section styling */
+        .conclusion-box {
+            background-color: #FAFAFA;
+            border-left: 4px solid #C0A062;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .risk-alert {
+            color: #C0392B; /* Subtle Red for risks */
+            font-weight: bold;
+        }
+
+        .footnote-marker {
+            font-size: 0.7em;
+            vertical-align: super;
+            color: #95A5A6;
+        }
+
+        /* Print overrides */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 20px;
+            }
+            th {
+                background-color: #2C3E50 !important;
+                color: #FFFFFF !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-brand">Martinhago Advocacia</div>
+
+    <h1>Parecer Técnico de Viabilidade<br>
+    <span style="font-size: 14pt; display: block; margin-top: 10px; color: #7F8C8D; text-transform: none;">Auditoria do Contrato Santander 0010339758</span></h1>
+
+    <p>Este parecer técnico-jurídico apresenta o resultado da auditoria realizada no contrato UseCasa, focando na distinção entre o que é legalmente hígido e o que constitui nulidade de pleno direito conforme os Temas Repetitivos do Superior Tribunal de Justiça (STJ).<span class="footnote-marker">1</span></p>
+
+    <h2>1. Quadro Resumo da Operação (Base de Cálculo)</h2>
+    <p>Para fins de recálculo e repetição de indébito, os valores abaixo constituem a estrutura de capital sobre a qual incidirão as impugnações.<span class="footnote-marker">1</span></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Parâmetro Financeiro</th>
+                <th>Valor / Taxa</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Principal Líquido</td>
+                <td class="highlight-value">R$ 208.814,92</td>
+                <td>Valor efetivamente disponibilizado ao cliente.<span class="footnote-marker">1</span></td>
+            </tr>
+            <tr>
+                <td>Despesas Financiadas</td>
+                <td>R$ 1.696,94</td>
+                <td>Tarifas de terceiros e avaliação técnica.<span class="footnote-marker">1</span></td>
+            </tr>
+            <tr>
+                <td>IOF Financiado</td>
+                <td>R$ 7.330,34</td>
+                <td>Imposto embutido no capital principal.<span class="footnote-marker">1</span></td>
+            </tr>
+            <tr>
+                <td>Total Financiado (Bruto)</td>
+                <td class="highlight-value">R$ 217.842,20</td>
+                <td>Base de incidência dos juros remuneratórios.<span class="footnote-marker">1</span></td>
+            </tr>
+            <tr>
+                <td>Taxa de Juros Efetiva</td>
+                <td class="highlight-value">1,35% a.m.</td>
+                <td>Custo mensal do capital.<span class="footnote-marker">1</span></td>
+            </tr>
+            <tr>
+                <td>Saldo Devedor Atual (Jan/26)</td>
+                <td>R$ 229.141,07</td>
+                <td>Valor registrado no DDC após incorporação de mora.<span class="footnote-marker">1</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>2. Validação Financeira: Ausência de Abusividade nos Juros</h2>
+    <p>A análise pericial demonstra que a taxa de juros remuneratórios principal é legal sob a ótica da jurisprudência consolidada do STJ.<span class="footnote-marker">1</span></p>
+    <ul>
+        <li><strong>Taxa Contratada:</strong> a.a. (efetiva).<span class="footnote-marker">1</span></li>
+        <li><strong>Média de Mercado (Out/2022):</strong> Estimada em a.a. para operações de Home Equity (SGS 25433).<span class="footnote-marker">4</span></li>
+        <li><strong>Análise de Abusividade:</strong> Segundo o STJ (REsp 1.061.530/RS), a revisão da taxa só ocorre se ela superar significativamente a média (limite prudencial de 1,5x).<span class="footnote-marker">3</span> Como o teto para revisão seria de a.a., a taxa do Santander de está dentro da legalidade.<span class="footnote-marker">1</span></li>
+    </ul>
+
+    <div class="conclusion-box">
+        <strong>Conclusão Parcial:</strong> O "coração" financeiro do contrato é hígido. Qualquer tentativa de reduzir os juros remuneratórios possui chance de êxito próxima a zero.<span class="footnote-marker">5</span>
+    </div>
+
+    <h2>3. Teses de Nulidade Objetiva (Potencial de Reversão)</h2>
+    <p>Embora a taxa principal seja legal, existem patologias nas cláusulas acessórias e no histórico de mora:<span class="footnote-marker">7</span></p>
+
+    <h3>I. Tarifa de Avaliação do Bem (Tema 958 STJ)</h3>
+    <p>O banco financiou despesas de avaliação técnica.<span class="footnote-marker">1</span></p>
+    <p><strong>A Abusividade:</strong> A cobrança é nula se o banco não comprovar a efetiva prestação do serviço por meio de laudo assinado por perito.<span class="footnote-marker">10</span></p>
+    <p><strong>Recuperação:</strong> Estorno do valor nominal mais os juros remuneratórios incidentes (Tema 1.268 STJ).<span class="footnote-marker">12</span></p>
+
+    <h3>II. Taxas de Assessoria de Cobrança</h3>
+    <p>O histórico registra sistematicamente lançamentos de "ASSESSORIA" e "ATENDIMENTO" em atrasos.<span class="footnote-marker">1</span></p>
+    <p><strong>A Abusividade:</strong> O repasse de custos de cobrança extrajudicial ao consumidor é nulo (Art. 51, IV e XII do CDC).<span class="footnote-marker">13</span></p>
+    <p><strong>Recuperação:</strong> Estorno de 100% destes valores pagos no histórico.<span class="footnote-marker">14</span></p>
+
+    <h3>III. Cumulação de Encargos Moratórios (Súmula 472 STJ)</h3>
+    <p>Identificou-se a aplicação de encargos que sugerem a cumulação de comissão de permanência com outros encargos.<span class="footnote-marker">1</span></p>
+    <p><strong>A Abusividade:</strong> A Súmula 472 veda a cumulação de comissão de permanência com juros de mora ou multa.<span class="footnote-marker">15</span></p>
+
+    <h2>4. Cálculo Estimativo do Indébito (O "Troco")</h2>
+    <p>Focando apenas nas nulidades documentais com alta chance de reversão:<span class="footnote-marker">1</span></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Item de Reversão</th>
+                <th>Valor Nominal (Est.)</th>
+                <th>Juros e Impacto (39 meses)</th>
+                <th>Repetição Simples</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tarifa de Avaliação (sem laudo)</td>
+                <td>R$ 1.200,00</td>
+                <td>R$ 821,00</td>
+                <td>R$ 2.021,00</td>
+            </tr>
+            <tr>
+                <td>Assessoria de Cobrança (Acumulada)</td>
+                <td>R$ 2.850,00</td>
+                <td>N/A</td>
+                <td>R$ 2.850,00</td>
+            </tr>
+            <tr>
+                <td>Excesso de Mora (Súmula 472)</td>
+                <td>R$ 3.100,00</td>
+                <td>N/A</td>
+                <td>R$ 3.100,00</td>
+            </tr>
+            <tr style="background-color: #EAF2F8; font-weight: bold;">
+                <td>Total Estimativo</td>
+                <td>R$ 7.150,00</td>
+                <td>R$ 821,00</td>
+                <td style="color: #27AE60;">R$ 7.971,00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Restituição em Dobro:</strong> Em cenário otimista (Art. 42 CDC), o crédito poderia chegar a aproximadamente <strong>R$ 15.000,00</strong>.<span class="footnote-marker">18</span></p>
+
+    <h2>5. Conclusão e Recomendação Estratégica</h2>
+    <p>O contrato Santander UseCasa n. 0010339758 é tecnicamente sólido na taxa de juros, operando dentro dos parâmetros de mercado vigentes à época da contratação.<span class="footnote-marker">1</span> Embora apresente nuances abusivas em suas cláusulas acessórias (como a tarifa de avaliação e taxas de assessoria de cobrança) e na gestão da inadimplência (anatocismo na mora), o impacto financeiro total dessas irregularidades é reduzido frente ao montante da dívida.<span class="footnote-marker">1</span></p>
+
+    <div class="conclusion-box" style="border-left-color: #C0392B;">
+        <h3 style="margin-top: 0; color: #C0392B;">Não se recomenda o ajuizamento de uma Ação Revisional.</h3>
+        <p>Os riscos superam os benefícios pelos seguintes motivos:</p>
+        <ul>
+            <li><strong>Baixa Expressividade Financeira:</strong> O potencial de recuperação (est. R$ 7,9 mil a R$ 15 mil) representa menos de 7% do saldo devedor atual (R$ 229 mil).<span class="footnote-marker">1</span></li>
+            <li><strong>Risco de Sucumbência:</strong> Como a tese principal (juros remuneratórios) é improcedente, o autor corre o risco de ser condenado a pagar honorários de sucumbência sobre o valor da causa, o que poderia anular qualquer ganho obtido com as tarifas.<span class="footnote-marker">3</span></li>
+            <li><strong>Custos Processuais:</strong> O custo com perícia contábil judicial e custas iniciais pode tornar a ação financeiramente inviável.<span class="footnote-marker">20</span></li>
+        </ul>
+        <p><strong>Alternativa Sugerida:</strong> Recomenda-se uma abordagem extrajudicial ou administrativa para questionar especificamente as taxas de assessoria de cobrança, mantendo o contrato em dia para evitar a consolidação da propriedade do imóvel, dado que o Santander possui garantia real robusta.</p>
+    </div>
+
+</body>
+</html>
