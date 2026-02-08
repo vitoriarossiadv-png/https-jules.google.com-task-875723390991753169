@@ -1,168 +1,218 @@
 import openpyxl
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
-from openpyxl.formatting.rule import CellIsRule
+from openpyxl.formatting.rule import CellIsRule, FormulaRule
+from openpyxl.utils import get_column_letter
 
 def create_excel_template():
     wb = openpyxl.Workbook()
 
-    # Define styles
-    header_fill = PatternFill(start_color="36454F", end_color="36454F", fill_type="solid") # Dark Slate
-    header_font = Font(color="FFFFFF", bold=True)
-    body_font = Font(name="Lato")
+    # --- STYLES ---
+    # Palette
+    COLOR_HEADER_BG = "2C3E50" # Dark Slate Blue
+    COLOR_HEADER_TEXT = "FFFFFF"
+    COLOR_BORDER = "BDC3C7" # Silver
+    COLOR_ACCENT_GOLD = "C0A062" # Champagne Gold
+    COLOR_CARD_BG = "F8F9FA" # Off White
+
+    # Fonts
+    font_header = Font(name='Arial', size=11, bold=True, color=COLOR_HEADER_TEXT)
+    font_body = Font(name='Arial', size=10)
+    font_dashboard_title = Font(name='Arial', size=24, bold=True, color=COLOR_HEADER_BG)
+    font_metric_label = Font(name='Arial', size=12, color="7F8C8D", bold=True)
+    font_metric_value = Font(name='Arial', size=28, bold=True, color=COLOR_HEADER_BG)
+
+    # Borders
+    thin_border = Border(left=Side(style='thin', color=COLOR_BORDER),
+                         right=Side(style='thin', color=COLOR_BORDER),
+                         top=Side(style='thin', color=COLOR_BORDER),
+                         bottom=Side(style='thin', color=COLOR_BORDER))
+
+    header_fill = PatternFill(start_color=COLOR_HEADER_BG, end_color=COLOR_HEADER_BG, fill_type="solid")
+    card_fill = PatternFill(start_color=COLOR_CARD_BG, end_color=COLOR_CARD_BG, fill_type="solid")
 
     # ---------------------------------------------------------
     # 1. Config Sheet (Hidden)
     # ---------------------------------------------------------
     ws_config = wb.active
     ws_config.title = "Config"
-    ws_config['A1'] = "Complexidade"
-    ws_config['B1'] = "Dias"
-
-    configs = [
-        ("Baixa", 4),
-        ("Média", 7),
-        ("Alta", 10)
-    ]
-
-    for row in configs:
-        ws_config.append(row)
-
+    ws_config.append(["Complexidade", "Dias"])
+    ws_config.append(["Baixa", 4])
+    ws_config.append(["Média", 7])
+    ws_config.append(["Alta", 10])
     ws_config.sheet_state = 'hidden'
+
+    # ---------------------------------------------------------
+    # Helper Function for Sheet Setup
+    # ---------------------------------------------------------
+    def setup_tracking_sheet(ws_name):
+        ws = wb.create_sheet(ws_name)
+        headers = [
+            "ID", "Cliente", "Tipo de Ação", "Complexidade",
+            "Data Envio Doc", "Prazo (Dias)", "Prazo Fatal",
+            "Status", "Data Protocolo", "Advogado Responsável"
+        ]
+        ws.append(headers)
+
+        # Apply Header Styles
+        for col_idx, cell in enumerate(ws[1], 1):
+            cell.fill = header_fill
+            cell.font = font_header
+            cell.alignment = Alignment(horizontal="center", vertical="center")
+            cell.border = thin_border
+
+        # Set Column Widths
+        col_widths = [8, 35, 25, 15, 18, 12, 18, 18, 18, 25]
+        for i, width in enumerate(col_widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = width
+
+        # Add Data Validation (Complexidade & Status)
+        dv_complexity = DataValidation(type="list", formula1='"Baixa,Média,Alta"', showDropDown=True)
+        ws.add_data_validation(dv_complexity)
+        dv_complexity.add("D2:D1000")
+
+        dv_status = DataValidation(type="list", formula1='"Pendente,Em Andamento,Finalizada"', showDropDown=True)
+        ws.add_data_validation(dv_status)
+        dv_status.add("H2:H1000")
+
+        # Add Formulas & Default Styling for Rows
+        for row in range(2, 101):
+            for col in range(1, 11):
+                cell = ws.cell(row=row, column=col)
+                cell.font = font_body
+                cell.border = thin_border
+                cell.alignment = Alignment(vertical="center")
+
+                if col not in [2, 3, 10]: # Center align except text fields
+                    cell.alignment = Alignment(horizontal="center", vertical="center")
+
+            # Formulas
+            ws[f"F{row}"] = f'=IFERROR(VLOOKUP(D{row}, Config!A:B, 2, FALSE), "")'
+            ws[f"G{row}"] = f'=IF(E{row}="", "", WORKDAY(E{row}, F{row}))'
+
+        # Conditional Formatting
+        green_fill = PatternFill(start_color='C6EFCE', end_color='C6EFCE', fill_type='solid')
+        yellow_fill = PatternFill(start_color='FFEB9C', end_color='FFEB9C', fill_type='solid')
+        red_fill = PatternFill(start_color='FFC7CE', end_color='FFC7CE', fill_type='solid')
+
+        # Complexity
+        ws.conditional_formatting.add('D2:D1000', CellIsRule(operator='equal', formula=['"Baixa"'], fill=green_fill))
+        ws.conditional_formatting.add('D2:D1000', CellIsRule(operator='equal', formula=['"Média"'], fill=yellow_fill))
+        ws.conditional_formatting.add('D2:D1000', CellIsRule(operator='equal', formula=['"Alta"'], fill=red_fill))
+
+        # Status
+        ws.conditional_formatting.add('H2:H1000', CellIsRule(operator='equal', formula=['"Finalizada"'], fill=green_fill))
+
+        return ws
 
     # ---------------------------------------------------------
     # 2. Entrada (Input Sheet)
     # ---------------------------------------------------------
-    ws_entrada = wb.create_sheet("Entrada")
-
-    headers = [
-        "ID", "Cliente", "Tipo de Ação", "Complexidade",
-        "Data Envio Doc", "Prazo (Dias)", "Prazo Fatal",
-        "Status", "Data Protocolo", "Advogado Responsável"
-    ]
-
-    ws_entrada.append(headers)
-
-    # Style headers
-    for cell in ws_entrada[1]:
-        cell.fill = header_fill
-        cell.font = header_font
-        cell.alignment = Alignment(horizontal="center")
-
-    # Data Validation: Complexidade
-    dv_complexity = DataValidation(type="list", formula1='"Baixa,Média,Alta"', showDropDown=True)
-    ws_entrada.add_data_validation(dv_complexity)
-    dv_complexity.add("D2:D1000") # Apply to D column
-
-    # Data Validation: Status
-    dv_status = DataValidation(type="list", formula1='"Pendente,Em Andamento,Finalizada"', showDropDown=True)
-    ws_entrada.add_data_validation(dv_status)
-    dv_status.add("H2:H1000") # Apply to H column
-
-    # Formulas for Row 2 (Template)
-    # F2: Prazo (Dias) -> VLOOKUP based on Complexidade
-    # In Excel/Sheets, we'll use a standard IF or VLOOKUP. Since the Config sheet is hidden,
-    # we can use explicit values in the formula for portability or refer to the hidden sheet.
-    # Let's use IFS for readability in modern Excel/Sheets:
-    # =IFS(D2="Baixa", 4, D2="Média", 7, D2="Alta", 10)
-    # But strictly speaking, VLOOKUP is safer for older versions.
-    # We'll use VLOOKUP against the hidden Config sheet.
-
-    for row_idx in range(2, 101): # Pre-fill formulas for 100 rows
-        cell_complex = f"D{row_idx}"
-        cell_date_doc = f"E{row_idx}"
-
-        # F: Prazo (Dias)
-        # =IFERROR(VLOOKUP(D2, Config!A:B, 2, FALSE), 0)
-        ws_entrada[f"F{row_idx}"] = f'=IFERROR(VLOOKUP({cell_complex}, Config!A:B, 2, FALSE), 0)'
-
-        # G: Prazo Fatal
-        # =WORKDAY(E2, F2)
-        # Need to handle empty dates to avoid 1900 dates.
-        ws_entrada[f"G{row_idx}"] = f'=IF({cell_date_doc}="", "", WORKDAY({cell_date_doc}, F{row_idx}))'
+    setup_tracking_sheet("Entrada")
 
     # ---------------------------------------------------------
     # 3. Monthly Sheets
     # ---------------------------------------------------------
     months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
               "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
-
     for month in months:
-        ws_month = wb.create_sheet(month)
-        ws_month.append(headers)
-        for cell in ws_month[1]:
-            cell.fill = header_fill
-            cell.font = header_font
-            cell.alignment = Alignment(horizontal="center")
+        setup_tracking_sheet(month)
 
     # ---------------------------------------------------------
-    # 4. Dashboard
+    # 4. Dashboard (Redesigned)
     # ---------------------------------------------------------
-    ws_dash = wb.create_sheet("Dashboard", 0) # Move to first position
+    ws_dash = wb.create_sheet("Dashboard", 0)
     ws_dash.sheet_view.showGridLines = False
 
-    ws_dash['A1'] = "DASHBOARD - GESTÃO DE PROTOCOLOS"
-    ws_dash['A1'].font = Font(size=20, bold=True, color="2C3E50")
-    ws_dash.merge_cells('A1:E1')
+    # Title
+    ws_dash['B2'] = "DASHBOARD - GESTÃO DE PROTOCOLOS"
+    ws_dash['B2'].font = font_dashboard_title
+    ws_dash['B2'].alignment = Alignment(horizontal="left")
 
-    # Metrics
-    ws_dash['A3'] = "Total Iniciais Lançadas"
-    ws_dash['B3'] = "Total Finalizadas"
-    ws_dash['C3'] = "% Meta Batida"
-    ws_dash['D3'] = "Status da Meta"
+    def create_card(start_row, start_col, title, formula, number_format="0"):
+        # Style Title
+        title_cell = ws_dash.cell(row=start_row, column=start_col)
+        title_cell.value = title
+        title_cell.font = font_metric_label
+        title_cell.alignment = Alignment(horizontal="center", vertical="center")
+        title_cell.fill = card_fill
 
-    # Style Metric Headers
-    for cell in ws_dash[3]:
-        cell.font = Font(bold=True)
-        cell.border = Border(bottom=Side(style='thin'))
+        # Style Value
+        value_cell = ws_dash.cell(row=start_row+1, column=start_col)
+        value_cell.value = formula
+        value_cell.font = font_metric_value
+        value_cell.alignment = Alignment(horizontal="center", vertical="center")
+        value_cell.number_format = number_format
 
-    # Formulas for Metrics
-    # Total Iniciais = Count(Entrada!A:A) - 1 (Header) + Count(Jan!A:A) - 1...
-    # Actually, usually "Entrada" holds pending, and Monthly holds finalized.
-    # Total = CountA(Entrada!A:A)-1 + Sum(CountA(Month!A:A)-1 for all months)
+        # Merge
+        ws_dash.merge_cells(start_row=start_row, start_column=start_col, end_row=start_row, end_column=start_col+2)
+        ws_dash.merge_cells(start_row=start_row+1, start_column=start_col, end_row=start_row+2, end_column=start_col+2)
 
-    # Let's simplify:
-    # A4: Total Pending (Entrada)
-    # B4: Total Finalized (All Months)
+        # Borders
+        # Draw border around the whole block (3x3)
+        for r in range(start_row, start_row+3):
+            for c in range(start_col, start_col+3):
+                cell = ws_dash.cell(row=r, column=c)
+                # Apply outer border logic
+                sides = {'left': None, 'right': None, 'top': None, 'bottom': None}
 
-    # Formula for Total Pending
-    ws_dash['A4'] = '=COUNTA(Entrada!A:A)-1'
+                if c == start_col: sides['left'] = Side(style='thin', color=COLOR_BORDER)
+                if c == start_col+2: sides['right'] = Side(style='thin', color=COLOR_BORDER)
+                if r == start_row: sides['top'] = Side(style='thin', color=COLOR_BORDER)
+                if r == start_row+2: sides['bottom'] = Side(style='thin', color=COLOR_BORDER)
 
-    # Formula for Total Finalized
-    # We need to sum counts from all monthly sheets.
-    # =COUNTA(Jan!A:A)-1 + COUNTA(Fev!A:A)-1 ...
-    total_finalized_formula = "=" + "+".join([f"(COUNTA({m}!A:A)-1)" for m in months])
-    ws_dash['B4'] = total_finalized_formula
+                cell.border = Border(**sides)
 
-    # % Meta Batida = Finalized / (Pending + Finalized)
-    # Assuming "Lançadas" means total universe of cases.
-    ws_dash['C4'] = '=IF((A4+B4)=0, 0, B4/(A4+B4))'
-    ws_dash['C4'].number_format = '0.0%'
+                # Internal divider
+                if r == start_row:
+                    cell.border = Border(bottom=Side(style='thin', color=COLOR_ACCENT_GOLD), **{k:v for k,v in sides.items() if k != 'bottom'})
 
-    # Status da Meta
-    # < 80%: Meta Não Batida
-    # >= 80% < 100%: Meta Batida
-    # 100%: Supermeta
-    ws_dash['D4'] = '=IF(C4=1, "Supermeta", IF(C4>=0.8, "Meta Batida", "Meta Não Batida"))'
+    # Metrics Layout
+    total_finalized_sum = "+".join([f"(COUNTA({m}!A:A)-1)" for m in months])
+    formula_total = f'=COUNTA(Entrada!A:A)-1 + {total_finalized_sum}'
 
-    # Conditional Formatting for Status
-    # Green for Supermeta, Blue for Batida, Red for Não Batida
-    # Excel conditional formatting is complex to inject via openpyxl perfectly for Sheets import,
-    # but let's try basic rules.
+    create_card(5, 2, "TOTAL PROTOCOLOS", formula_total) # B5
 
-    red_fill = PatternFill(start_color='FFC7CE', end_color='FFC7CE', fill_type='solid')
-    green_fill = PatternFill(start_color='C6EFCE', end_color='C6EFCE', fill_type='solid')
-    yellow_fill = PatternFill(start_color='FFEB9C', end_color='FFEB9C', fill_type='solid')
+    formula_finalized = f'={total_finalized_sum}'
+    create_card(5, 6, "FINALIZADAS", formula_finalized) # F5
 
-    ws_dash.conditional_formatting.add('D4',
-        CellIsRule(operator='equal', formula=['"Meta Não Batida"'], stopIfTrue=True, fill=red_fill))
-    ws_dash.conditional_formatting.add('D4',
-        CellIsRule(operator='equal', formula=['"Meta Batida"'], stopIfTrue=True, fill=yellow_fill))
-    ws_dash.conditional_formatting.add('D4',
-        CellIsRule(operator='equal', formula=['"Supermeta"'], stopIfTrue=True, fill=green_fill))
+    formula_meta = f'=IFERROR({formula_finalized} / {formula_total}, 0)'
+    create_card(5, 10, "% META BATIDA", formula_meta, "0%") # J5
+
+    # Status Indicator
+    ws_dash['B10'] = "STATUS DA META"
+    ws_dash['B10'].font = font_metric_label
+
+    # Logic: <0.8 = Red, 0.8-0.99 = Blue, 1.0 = Green
+    ws_dash['B11'] = f'=IF({formula_meta}=1, "SUPERMETA 🚀", IF({formula_meta}>=0.8, "META BATIDA ✅", "META NÃO BATIDA ⚠️"))'
+    ws_dash['B11'].font = Font(name='Arial', size=20, bold=True)
+    ws_dash.merge_cells('B11:E12')
+    ws_dash['B11'].alignment = Alignment(horizontal="left", vertical="center")
+
+    # Conditional Formatting for Status Text
+    # Use cell references to J6 (where % meta is) - wait, J6 is merged?
+    # J5 is title, J6 is value (merged J6:L7). referencing J6 works.
+    # Note: openpyxl formulas in rules must be strings.
+
+    # We need to refer to the value cell of the % Meta card.
+    # create_card at (5, 10) -> Title at (5,10), Value at (6,10) i.e., J6.
+
+    # Green
+    ws_dash.conditional_formatting.add('B11', FormulaRule(formula=['J6=1'], font=Font(color="27AE60", size=20, bold=True)))
+    # Blue/Yellow
+    ws_dash.conditional_formatting.add('B11', FormulaRule(formula=['AND(J6>=0.8, J6<1)'], font=Font(color="2980B9", size=20, bold=True)))
+    # Red
+    ws_dash.conditional_formatting.add('B11', FormulaRule(formula=['J6<0.8'], font=Font(color="C0392B", size=20, bold=True)))
+
+    # Adjust widths
+    ws_dash.column_dimensions['A'].width = 2
+    for col in ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L']:
+        ws_dash.column_dimensions[col].width = 15
+    ws_dash.column_dimensions['E'].width = 3
+    ws_dash.column_dimensions['I'].width = 3
 
     wb.save("legal_control.xlsx")
-    print("Excel file 'legal_control.xlsx' created successfully.")
+    print("Excel file 'legal_control.xlsx' created successfully with Enhanced Styles.")
 
 if __name__ == "__main__":
     create_excel_template()
