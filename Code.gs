@@ -1,5 +1,5 @@
 /**
- * Google Apps Script para Automação da Planilha de Controle Jurídico
+ * CÓDIGO GOOGLE APPS SCRIPT (JAVASCRIPT) - NÃO CONFUNDIR COM PYTHON
  *
  * INSTRUÇÕES:
  * 1. Abra sua planilha no Google Sheets.

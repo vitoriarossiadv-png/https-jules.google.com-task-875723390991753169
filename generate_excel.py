@@ -1,3 +1,6 @@
+# ESTE ARQUIVO É PYTHON. EXECUTE LOCALMENTE. NÃO COLE NO GOOGLE SHEETS.
+# Para rodar: python3 generate_excel.py
+
 import openpyxl
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
@@ -190,13 +193,6 @@ def create_excel_template():
     ws_dash['B11'].alignment = Alignment(horizontal="left", vertical="center")
 
     # Conditional Formatting for Status Text
-    # Use cell references to J6 (where % meta is) - wait, J6 is merged?
-    # J5 is title, J6 is value (merged J6:L7). referencing J6 works.
-    # Note: openpyxl formulas in rules must be strings.
-
-    # We need to refer to the value cell of the % Meta card.
-    # create_card at (5, 10) -> Title at (5,10), Value at (6,10) i.e., J6.
-
     # Green
     ws_dash.conditional_formatting.add('B11', FormulaRule(formula=['J6=1'], font=Font(color="27AE60", size=20, bold=True)))
     # Blue/Yellow
