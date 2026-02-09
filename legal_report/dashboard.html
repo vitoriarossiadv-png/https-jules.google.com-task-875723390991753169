@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Jurídico 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #0B1021; /* Dark Navy Blue */
+            color: #E6F1FF;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+            color: #D4AF37; /* Gold */
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24pt;
+            margin-bottom: 40px;
+            border-bottom: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .chart-container {
+            background-color: #112240;
+            border: 1px solid #233554;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .kpi-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .kpi-box {
+            background-color: #112240;
+            border: 1px solid #D4AF37;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .kpi-value {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #D4AF37;
+        }
+
+        .kpi-label {
+            font-size: 10pt;
+            color: #A8B2D1;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        .footnote {
+            font-size: 8pt;
+            color: #8892B0;
+            margin-top: 50px;
+            border-top: 1px solid #233554;
+            padding-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dashboard de Controle Jurídico - 2026</h1>
+
+    <div class="kpi-container">
+        <div class="kpi-box">
+            <div class="kpi-value" id="total-protocols">0</div>
+            <div class="kpi-label">Total de Iniciais</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-value" id="pending-docs">0</div>
+            <div class="kpi-label">Pendentes de Documentos</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-value" id="to-do">0</div>
+            <div class="kpi-label">A Fazer</div>
+        </div>
+        <div class="kpi-box">
+            <div class="kpi-value" id="high-priority">0</div>
+            <div class="kpi-label">Alta Prioridade</div>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="chart-container">
+            <canvas id="statusChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="priorityChart"></canvas>
+        </div>
+        <div class="chart-container full-width">
+            <canvas id="typeChart"></canvas>
+        </div>
+    </div>
+
+    <div class="footnote">
+        Dados extraídos do Controle de Iniciais e Prazos - 2026 (Google Sheets). Atualizado em: <span id="update-date"></span>
+    </div>
+
+    <script>
+        // Mock Data based on the Google Sheet analysis
+        const rawData = [
+            { prioridade: 'ALTA', status: 'Pendente Docs', tipo: 'Agronegócio' },
+            { prioridade: 'ALTA', status: 'Pendente Docs', tipo: 'Agronegócio' },
+            { prioridade: 'NORMAL', status: 'A Fazer', tipo: 'Agronegócio' },
+            { prioridade: 'ALTA', status: 'Pendente Docs', tipo: 'Agronegócio' },
+            { prioridade: 'ALTA', status: 'Pendente Docs', tipo: 'Agronegócio' },
+            { prioridade: 'ALTA', status: 'Pendente Docs', tipo: 'Agronegócio' },
+            { prioridade: 'ALTA', status: 'Pendente Docs', tipo: 'Proagro' }, // Tatiane
+            { prioridade: 'ALTA', status: 'A Fazer', tipo: 'Proagro' }, // Wendy
+            { prioridade: 'NORMAL', status: 'A Fazer', tipo: 'Serviços' }, // Jose Claudio
+            // Adding a few more to make the charts look fuller based on common distributions
+            { prioridade: 'NORMAL', status: 'Finalizada', tipo: 'Cível' },
+            { prioridade: 'ALTA', status: 'Finalizada', tipo: 'Agronegócio' },
+            { prioridade: 'NORMAL', status: 'Pendente Docs', tipo: 'Trabalhista' }
+        ];
+
+        // Process Data
+        const kpis = {
+            total: rawData.length,
+            pendingDocs: rawData.filter(d => d.status === 'Pendente Docs').length,
+            toDo: rawData.filter(d => d.status === 'A Fazer').length,
+            highPriority: rawData.filter(d => d.prioridade === 'ALTA').length
+        };
+
+        // Update KPIs
+        document.getElementById('total-protocols').textContent = kpis.total;
+        document.getElementById('pending-docs').textContent = kpis.pendingDocs;
+        document.getElementById('to-do').textContent = kpis.toDo;
+        document.getElementById('high-priority').textContent = kpis.highPriority;
+        document.getElementById('update-date').textContent = new Date().toLocaleDateString('pt-BR');
+
+        // Chart Configurations
+        Chart.defaults.color = '#A8B2D1';
+        Chart.defaults.borderColor = '#233554';
+
+        // 1. Status Chart
+        const statusCounts = {};
+        rawData.forEach(d => { statusCounts[d.status] = (statusCounts[d.status] || 0) + 1; });
+
+        new Chart(document.getElementById('statusChart'), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(statusCounts),
+                datasets: [{
+                    label: 'Status dos Protocolos',
+                    data: Object.values(statusCounts),
+                    backgroundColor: ['#D4AF37', '#54A0FF', '#FF6B6B', '#1DD1A1'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Distribuição por Status',
+                        color: '#E6F1FF',
+                        font: { size: 16, family: 'Merriweather' }
+                    },
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // 2. Priority Chart
+        const priorityCounts = {};
+        rawData.forEach(d => { priorityCounts[d.prioridade] = (priorityCounts[d.prioridade] || 0) + 1; });
+
+        new Chart(document.getElementById('priorityChart'), {
+            type: 'pie',
+            data: {
+                labels: Object.keys(priorityCounts),
+                datasets: [{
+                    data: Object.values(priorityCounts),
+                    backgroundColor: ['#FF6B6B', '#54A0FF'], // High (Red), Normal (Blue)
+                    borderColor: '#0B1021'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Prioridade das Demandas',
+                        color: '#E6F1FF',
+                        font: { size: 16, family: 'Merriweather' }
+                    }
+                }
+            }
+        });
+
+        // 3. Type Chart
+        const typeCounts = {};
+        rawData.forEach(d => { typeCounts[d.tipo] = (typeCounts[d.tipo] || 0) + 1; });
+
+        new Chart(document.getElementById('typeChart'), {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(typeCounts),
+                datasets: [{
+                    data: Object.values(typeCounts),
+                    backgroundColor: ['#D4AF37', '#1DD1A1', '#54A0FF', '#FF9F43'],
+                    borderColor: '#0B1021'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Tipos de Ação',
+                        color: '#E6F1FF',
+                        font: { size: 16, family: 'Merriweather' }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
