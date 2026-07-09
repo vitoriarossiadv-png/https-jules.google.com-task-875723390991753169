@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Diagnóstico e Engenharia Jurídica</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            background-color: #0B1021;
+            color: #E6F1FF;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+            color: #D4AF37;
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24pt;
+            margin-bottom: 30px;
+            border-bottom: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            font-size: 18pt;
+        }
+
+        h3 {
+            font-size: 14pt;
+            border-bottom: none;
+            color: #A8B2D1;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 15px;
+            font-size: 11pt;
+        }
+
+        .highlight {
+            color: #D4AF37;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+
+        .success {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .moderate {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        /* Dashboard Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+            background-color: #112240;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #233554;
+        }
+
+        th {
+            background-color: #1a2a4b;
+            color: #D4AF37;
+            font-weight: bold;
+            font-family: 'Merriweather', serif;
+            text-transform: uppercase;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .card {
+            background-color: #112240;
+            border-left: 4px solid #D4AF37;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .mermaid {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        /* Print overrides */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</head>
+<body>
+
+    <h1>Relatório de Diagnóstico e Engenharia Jurídica:<br>
+    <span style="font-size: 16pt; color: #A8B2D1;">Carteira de Processos Ativos</span></h1>
+
+    <div class="card">
+        <p>O contencioso judicial sob exame apresenta um passivo total estimado em <strong>R$ 1.870.940,31</strong> distribuído em treze demandas processuais. O avanço das execuções exige uma atuação defensiva coordenada que priorize o estancamento de riscos operacionais imediatos — como penhoras de faturamento e de contas bancárias — ao mesmo tempo em que explora vulnerabilidades procedimentais dos credores, como a lentidão causada pela morte de coexecutados e a contagem de prazos para a ocorrência da prescrição intercorrente.</p>
+    </div>
+
+    <h2>Dashboard Executivo de Riscos e Valores</h2>
+    <p>A matriz abaixo consolida todos os feitos em trâmite ordenados por gravidade de risco patrimonial, mapeando a exposição financeira originária e atualizada de cada demanda para otimização da tomada de decisão corporativa.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Processo e Credor</th>
+                <th>Partes Executadas</th>
+                <th>Valores (Original / Atualizado)</th>
+                <th>Classe de Risco</th>
+                <th>Foco Patrimonial / Alvo de Penhora</th>
+                <th>Status Processual Atual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5004856-10.2023.8.21.0048 Unicred</td>
+                <td>Marcial, Poop, Rafael</td>
+                <td>R$ 425.120,59 / R$ 559.733,41</td>
+                <td class="warning">🔴 CRÍTICO</td>
+                <td>50% de apartamento, terreno urbano, Audi e 2 Focus</td>
+                <td>Agravo de instrumento rejeitado; iminência de atos expropriatórios.</td>
+            </tr>
+            <tr>
+                <td>5006745-96.2023.8.21.0048 Unicred</td>
+                <td>Aella</td>
+                <td>R$ 45.437,51 / R$ 54.936,54</td>
+                <td class="warning">🔴 CRÍTICO</td>
+                <td>Caixa operacional / Bloqueio Sisbajud</td>
+                <td>Cumprimento de sentença; iminência de penhora "Teimosinha".</td>
+            </tr>
+            <tr>
+                <td>5006850-39.2024.8.21.0048 Unicred</td>
+                <td>Poopstore</td>
+                <td>R$ 34.128,81 / R$ 50.632,38</td>
+                <td class="warning">🔴 CRÍTICO</td>
+                <td>Percentual de faturamento bruto da empresa</td>
+                <td>Pedido de constrição do faturamento aguardando despacho judicial.</td>
+            </tr>
+            <tr>
+                <td>5008366-31.2023.8.21.0048 Sicoob</td>
+                <td>Aella, Poop, Marcial, Rafael, Roberta</td>
+                <td>R$ 243.787,95 / R$ 331.120,77</td>
+                <td class="moderate">🟡 MODERADO</td>
+                <td>Penhora no rosto dos autos / Créditos futuros</td>
+                <td>Transcurso de prazo para o banco requerer novas penhoras.</td>
+            </tr>
+            <tr>
+                <td>5000966-29.2024.8.21.0048 Sicoob</td>
+                <td>Lazzari, Aella, Rafael, Irene, Luiz, Poop, Marcial, Roberta</td>
+                <td>R$ 95.877,28 / R$ 141.356,45</td>
+                <td class="moderate">🟡 MODERADO</td>
+                <td>Bloqueio de contas bancárias e veículos</td>
+                <td>Processo suspenso por óbito; discussão sobre sucessão.</td>
+            </tr>
+            <tr>
+                <td>5000973-21.2024.8.21.0048 Sicoob</td>
+                <td>Poop, Marcial, Roberta</td>
+                <td>R$ 75.390,09 / R$ 136.443,64</td>
+                <td class="moderate">🟡 MODERADO</td>
+                <td>Veículos e 3 imóveis administrativamente prenotados</td>
+                <td>Renajud ativo; banco tentando atingir bens alienados.</td>
+            </tr>
+            <tr>
+                <td>5002854-33.2024.8.21.0048 Cresol</td>
+                <td>Poopstore, Marcial</td>
+                <td>R$ 83.329,28 / R$ 96.615,56</td>
+                <td class="moderate">🟡 MODERADO</td>
+                <td>Veículo Audi / Consórcio</td>
+                <td>Embargos pendentes; agravo aguardando efeito suspensivo.</td>
+            </tr>
+            <tr>
+                <td>5004279-32.2023.8.21.0048 Unicred</td>
+                <td>Rafael Anselmo</td>
+                <td>R$ 134.066,81</td>
+                <td class="success">🟢 BAIXO</td>
+                <td>Bens móveis residenciais</td>
+                <td>Revelia; carta precatória expedida; tese de prescrição.</td>
+            </tr>
+            <tr>
+                <td>5005120-27.2023.8.21.0048 Unicred</td>
+                <td>Marcial</td>
+                <td>R$ 165.489,25 / R$ 249.194,52</td>
+                <td class="success">🟢 BAIXO</td>
+                <td>Serasajud e Infojud</td>
+                <td>Paralisado desde abril por notificação de falecimento.</td>
+            </tr>
+            <tr>
+                <td>5001065-96.2024.8.21.0048 Sicoob</td>
+                <td>Aella</td>
+                <td>R$ 17.079,88</td>
+                <td class="success">🟢 BAIXO</td>
+                <td>Ação de Cobrança / Recursos</td>
+                <td>Aguardando admissibilidade de Recurso Especial do banco.</td>
+            </tr>
+            <tr>
+                <td>5001071-06.2024.8.21.0048 Sicoob</td>
+                <td>Poopstore</td>
+                <td>R$ 26.082,10</td>
+                <td class="success">🟢 BAIXO</td>
+                <td>Ação de Cobrança / Recursos</td>
+                <td>Aguardando admissibilidade de Recurso Especial do banco.</td>
+            </tr>
+            <tr>
+                <td>5007647-15.2024.8.21.0048 Unicred</td>
+                <td>Marcial</td>
+                <td>R$ 69.931,86</td>
+                <td class="success">🟢 BAIXO</td>
+                <td>Sem citação efetiva</td>
+                <td>Citação negativa; ausência de habilitação estratégica.</td>
+            </tr>
+            <tr>
+                <td>5005116-87.2023.8.21.0048 Unicred</td>
+                <td>Marcial</td>
+                <td>R$ 2.600,86 / R$ 3.746,39</td>
+                <td class="success">🟢 BAIXO</td>
+                <td>RESOLVIDO / Parcelas pendentes</td>
+                <td>Acordo ativo com parcelamento regular.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>Fluxo de Engenharia Jurídica e Roteiro de Defesa</h2>
+    <p>O planejamento estratégico das defesas e das suspensões processuais segue uma lógica sistemática e coordenada, representada visualmente pela árvore de decisões estruturada abaixo :</p>
+
+    <div class="mermaid">
+    graph TD
+        %% Estilos de nós e conexões
+        classDef red fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#991b1b;
+        classDef yellow fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#92400e;
+        classDef green fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#166534;
+        classDef blue fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e40af;
+
+        Start[Mapeamento Estratégico] --> R1:::red
+        Start --> R2:::yellow
+        Start --> R3:::green
+
+        R1[Riscos Críticos] --> A1[5004856 Unicred: Leilão Imóvel/Carros]:::red
+        R1 --> A2[5006745 Unicred: Bloqueio Contas]:::red
+        R1 --> A3[5006850 Unicred: Penhora Faturamento]:::red
+
+        R2[Riscos Moderados] --> B1[5008366 Sicoob: Créditos Futuros]:::yellow
+        R2 --> B2[5002854 Cresol: Agravo de Instrumento]:::yellow
+        R2 --> B3[0966/0973 Sicoob: Óbito/Sucessão]:::yellow
+
+        R3[Baixo Risco] --> C1[5004279 Unicred: Prescrição Intercorrente 2028]:::green
+        R3 --> C2[5005116 Unicred: Pagamento Parcelado]:::green
+    </div>
+
+    <h2>Estratégias de Proteção Patrimonial Contra Medidas Expropriatórias Imediatas</h2>
+    <p>A primeira linha de defesa deve concentrar esforços na neutralização das tentativas iminentes de invasão patrimonial e de restrição de fluxo financeiro. Três processos da Unicred demandam atenção imediata e contramedidas urgentes para blindagem dos ativos circulantes e permanentes do grupo.</p>
+
+    <h3>Bloqueio Imobiliário e Automotivo na Execução Unicred (Final 4856)</h3>
+    <p>A execução de título extrajudicial autuada sob o número 5004856-10.2023.8.21.0048, protocolada em 18/07/2023 com valor inicial de R$ 425.120,59, atinge atualmente o montante atualizado de R$ 559.733,41. A rejeição e consequente trânsito em julgado do agravo de instrumento sob nº 5347243-92.2025.8.21.7000, cuja baixa definitiva ocorreu em 29/04/2026, removeram os obstáculos recursais para que o exequente avance contra os bens penhorados.</p>
+    <p>A penhora atualmente recai sobre cinquenta por cento do apartamento de Marcial, um terreno urbano avaliado em duzentos mil reais, além de três automóveis (um Audi de Marcial e dois Ford Focus de Rafael) e um bloqueio via Sisbajud de R$ 5.748,86. A ausência de novas movimentações processuais desde a baixa do agravo indica que o credor está em vias de formular o pedido de adjudicação ou alienação judicial por leilão público.</p>
+    <div class="card">
+        <strong>Ação:</strong> A resposta jurídica cabível exige a fiscalização atenta e cotidiana do andamento processual com o intuito de suscitar nulidades formais em eventuais editais de leilão, apontar defasagens ou erros materiais nas avaliações imobiliárias realizadas e buscar alternativas de substituição dos bens por direitos ou ativos de menor liquidez comercial, impedindo a perda patrimonial imediata do apartamento residencial e dos automóveis.
+    </div>
+
+    <h3>Risco de Sisbajud Reiterações (Teimosinha) na Execução Aella (Final 6745)</h3>
+    <p>O cumprimento de sentença originado da ação monitória sob nº 5006745-96.2023.8.21.0048, autuado sob o incidente nº 5004682-64.2024.8.21.0048 com valor de causa de R$ 45.437,51 e saldo atualizado de R$ 54.936,54, impõe risco iminente de colapso de liquidez. Embora as pesquisas via sistemas informatizados Sniper e CNIB tenham localizado imóveis vinculados aos coexecutados, o banco declarou desinteresse em virtude de prévias averbações de indisponibilidade.</p>
+    <p>Como consequência, a instituição financeira requereu formalmente a penhora via Sisbajud, pleito que ainda não foi apreciado pelo magistrado. Para resguardar o direito ao contraditório, a defesa apresentou impugnação à penhora dentro do prazo preclusivo mesmo diante da inércia do credor quanto aos imóveis.</p>
+    <div class="card">
+        <strong>Ação:</strong> A iminência de um bloqueio continuado via Sisbajud ("Teimosinha") nas contas bancárias operacionais da empresa constitui uma ameaça séria ao pagamento de fornecedores, tributos e salários. Faz-se indispensável delinear preventivamente um incidente de impenhorabilidade fundado na preservação do capital de giro e na proteção de receitas estritamente operacionais, sustentando que a constrição total de contas correntes empresariais acarreta uma indevida liquidação sumária da atividade comercial privada.
+    </div>
+
+    <h3>Pedido de Penhora sobre o Faturamento da Poop Store (Final 6850)</h3>
+    <p>Na demanda monitória em fase de cumprimento de sentença nº 5006850-39.2024.8.21.0048, protocolada em 20/03/2024 (onde consta erro de digitação do ano no documento original) com valor original de R$ 34.128,81 e evolução atualizada para R$ 50.632,38, a credora esgotou as vias de busca de patrimônio livre pelos sistemas tradicionais Sisbajud, Renajud, Infojud e Sniper. Diante da insuficiência de bens, a Unicred protocolou o pedido extraordinário de penhora de um percentual fixo sobre o faturamento bruto mensal da empresa Poop Store, pleito atualmente pendente de exame judicial.</p>
+    <div class="card">
+        <strong>Ação:</strong> A engenharia defensiva para rechaçar essa pretensão deve se estruturar na absoluta falta de preenchimento dos requisitos legais que autorizam a medida excepcional, previstos na legislação processual civil e na jurisprudência pátria. Deverá ser sustentado que a penhora de faturamento depende da nomeação prévia de perito administrador para a confecção de plano de gestão e de demonstração cabal de que a retenção financeira não causará o encerramento das atividades empresariais. A petição de oposição deve ser instruída com balancetes contábeis e demonstrativos de resultado do exercício, de forma a comprovar que as margens operacionais líquidas são incapazes de suportar qualquer dedução sem colocar em risco a folha salarial dos empregados.
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>O Óbito dos Executados e as Implicações na Sucessão Processual e Inventário</h2>
+    <p>O falecimento de coexecutados centrais ao polo passivo das demandas de cobrança abre uma janela de oportunidade processual baseada na suspensão compulsória dos feitos e na rediscussão das responsabilidades patrimoniais. A suspensão prevista no artigo 313, inciso I, do Código de Processo Civil, constitui ferramenta indispensável para obstar o prosseguimento açodado das execuções promovidas pelo Sicoob e Unicred.</p>
+
+    <h3>Paralisação do Feito na Execução Unicred (Final 5120)</h3>
+    <p>Na execução de título extrajudicial nº 5005120-27.2023.8.21.0048, protocolada em 26/07/2023 com valor atualizado de R$ 249.194,52, o banco obteve um bloqueio eletrônico Sisbajud de R$ 2.726,36 em fevereiro de 2025, o qual já foi levantado pela instituição, seguido por uma tentativa infrutífera no início de 2026. Embora o débito tenha sido incluído nos cadastros restritivos via Serasajud e pesquisas Infojud tenham sido efetuadas, o feito encontra-se estagnado desde abril de 2026, termo no qual a defesa formalizou a petição de óbito do executado Marcial.</p>
+    <div class="card">
+        <strong>Ação:</strong> A postura estratégica neste feito consiste em manter a inércia total até que o credor seja provocado pelo juízo a promover a correta substituição processual pelo espólio ou sucessores, o que exige dos procuradores do banco diligências demoradas e pesquisas cartorárias para localização de inventário e determinação da partilha de bens.
+    </div>
+
+    <h3>Sucessão e Inventário na Execução Multi-Réus Sicoob (Final 0966)</h3>
+    <p>A execução de título extrajudicial autuada sob o número 5000966-29.2024.8.21.0048, com valor de causa de R$ 95.877,28 e saldo atualizado de R$ 141.356,45, apresenta um cenário procedimental de extrema complexidade. Após o cancelamento dos embargos à execução, a lide foi direcionada a discussões sobre agravos de instrumento iminentes: um deles interposto pela instituição credora e o outro manejado pelo antigo escritório de defesa com o escopo de desbloquear os valores irrisórios de R$ 335,87 (Marcial), R$ 243,91 (Aella) e R$ 4.104,96 (Rafael). No início de 2026, o banco colacionou relatórios de penhoras ocorridas em 2024 e pleiteou buscas via Renajud, providência ainda não analisada pelo juízo.</p>
+    <p>O óbito de Marcial foi comunicado no processo, o que fez o Sicoob peticionar requerendo a regularização do polo passivo mediante a citação e inclusão dos herdeiros e do espólio, tanto de Marcial quanto do também falecido coexecutado Luiz. A análise da defesa neste processo possui duas frentes urgentes:</p>
+    <ul>
+        <li><strong>Investigação de Ativos e Sucessão:</strong> Realizar o levantamento cartorário minucioso sobre a abertura de inventários em nome de Luiz e Marcial, bem como verificar quais bens móveis ou imóveis compunham o patrimônio dos falecidos, de forma a evitar que bens pessoais de herdeiros que não possuem relação direta com a dívida sejam atingidos por desvio de finalidade.</li>
+        <li><strong>Exceção de Pré-Executividade Irene:</strong> Analisar a ocorrência de consolidação datada de 31/07/2024 da loja vinculada a Irene. Comprovada a consolidação e a adjudicação correspondente, torna-se imperioso apresentar Exceção de Pré-Executividade (EPE) apontando a extinção do feito em relação a Irene em virtude da quitação integral de sua quota de responsabilidade ou pela perda superveniente do objeto executivo.</li>
+    </ul>
+
+    <h3>Prenotações Administrativas na Execução Sicoob (Final 0973)</h3>
+    <p>A demanda executiva nº 5000973-21.2024.8.21.0048, com valor histórico de R$ 75.390,09 e montante atualizado de R$ 136.443,64, contava com discussão de embargos cancelada e agravos baixados devido ao não acolhimento do pedido de assistência judiciária gratuita. O processo ostenta uma restrição Renajud ativa sobre o veículo Audi de propriedade de Marcial.</p>
+    <p>Após a formalização da comunicação do falecimento de Marcial, o Sicoob peticionou para relatar a realização de uma prenotação administrativa de averbação premonitória nas matrículas de três imóveis que já estavam alienados fiduciariamente à própria cooperativa.</p>
+    <p>A defesa deve agir sob duas frentes estratégicas :</p>
+    <ul>
+        <li><strong>Verificação Contratual:</strong> Analisar o instrumento contratual de capital de giro objeto da demanda. A petição inicial executa dois contratos distintos.</li>
+        <li><strong>Arguição de Iliquidez via EPE:</strong> Constatou-se a viabilidade técnica de isolar o contrato de menor valor (aproximadamente trinta mil reais) por meio de uma Exceção de Pré-Executividade, alegando a iliquidez material do título decorrente de demonstrativos insuficientes de evolução de débito. Caso o magistrado indefira o processamento do incidente sob o argumento de necessidade de dilação probatória, a matéria deverá ser deslocada para uma ação de conhecimento própria, obstando temporariamente o curso da constrição forçada.</li>
+    </ul>
+
+    <h2>Teses de Defesa e Incidentes de Iliquidez Contratual</h2>
+    <p>O embate técnico sobre a validade e certeza dos títulos que amparam as cobranças constitui barreira processual relevante para impedir atos de expropriação forçada, permitindo debater encargos ilegais cobrados pelas cooperativas.</p>
+
+    <h3>Embargos à Execução e Agravo de Instrumento Cresol (Final 2854)</h3>
+    <p>A execução movida pela Cresol sob o número 5002854-33.2024.8.21.0048, com valor originário de R$ 83.329,28 e estimativa atualizada defasada de R$ 96.615,56, possui embargos à execução que aguardam julgamento, pendendo a providência de juntada formal da certidão de óbito de Marcial para regularização subjetiva do polo. Anteriormente, a defesa apresentou Exceção de Pré-Executividade para combater a novação irregular de dívidas anteriores e apontar a iliquidez absoluta do título pela cumulação ilegal do indicador de juros CDI como indexador financeiro atrelado à atualização monetária.</p>
+    <p>Diante do despacho que rejeitou as teses defensivas, foi interposto Agravo de Instrumento perante o respectivo Tribunal de Justiça, aguardando-se a apreciação do pedido de atribuição de efeito suspensivo à execução originária.</p>
+    <div class="card">
+        O risco patrimonial nesta demanda é temporariamente reduzido, na medida em que a única iniciativa do credor na ação executiva principal consiste no requerimento de expedição de ofício para a administradora de consórcio confirmar se o automóvel Audi encontra-se integralmente quitado e com gravame baixado, ato de instrução que não representa perigo iminente de expropriação.
+    </div>
+
+    <h3>Discussões de Encargos em Cobranças Sicoob (Finais 1065 e 1071)</h3>
+    <p>As ações de cobrança de rito comum autuadas sob os números 5001065-96.2024.8.21.0048 (contra Aella, com valor de causa de R$ 17.079,88) e 5001071-06.2024.8.21.0048 (contra Poopstore, com valor de R$ 26.082,10) versam sobre discussões idênticas. O Sicoob havia interposto recurso de apelação visando a alteração da sistemática de atualização monetária e aplicação de taxas de juros em substituição à incidência isolada da Taxa Selic.</p>
+    <p>Diante do não acolhimento das razões apelatórias, o credor interpôs Recurso Especial (REsp). Ambos os feitos encontram-se na fase de processamento preliminar, aguardando de forma passiva a decisão de admissibilidade dos recursos excepcionais pela Vice-Presidência do Tribunal de Justiça competente.</p>
+    <div class="card">
+        <strong>Estratégia:</strong> Essas demandas não trazem qualquer perigo operacional ou risco imediato de expropriação, devendo a defesa aguardar passivamente a consolidação do trânsito em julgado das decisões que confirmaram a aplicação de encargos moderados para as devedoras.
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Janelas de Oportunidade: Estratégia de Tempo, Prescrição Intercorrente e Acordos Reduzidos</h2>
+    <p>A condução processual inteligente exige também a exploração da inércia dos credores e o decurso do tempo como ferramentas de extinção de passivos, o que reduz custos operacionais e eleva o poder de barganha para a composição amigável de conflitos.</p>
+
+    <h3>Oportunidade de Prescrição Intercorrente na Execução Rafael Anselmo (Final 4279)</h3>
+    <p>O cenário mais promissor no tocante ao encerramento estratégico de litígios por esgotamento processual encontra-se na execução de título extrajudicial sob o número 5004279-32.2023.8.21.0048, ajuizada em 27/06/2023 com valor original de R$ 134.066,81 contra Rafael Anselmo, o qual figurou como revel na demanda. Previamente, a cooperativa exequente tentou a penhora das cotas sociais pertencentes ao executado, pretensão que foi definitivamente indeferida e confirmada em sede de recurso de agravo de instrumento.</p>
+    <p>Na situação atual, o magistrado deferiu o pedido de penhora sobre os bens móveis que guarnecem a residência do executado, expedindo a respectiva carta precatória para cumprimento do mandado em 06/05/2026, restando pendente a confirmação de recebimento pelo juízo deprecado. Um mandado de penhora anterior já havia retornado com certidão negativa exarada por oficial de justiça.</p>
+    <div class="card">
+        A defesa optou por uma estratégia processual de ganho deliberado de tempo, mantendo-se em silêncio absoluto e abstendo-se de realizar habilitação espontânea nos autos, aguardando que o oficial de justiça realize as tentativas práticas de diligência. Caso ocorra o cumprimento do mandado de forma positiva, a defesa procederá à imediata habilitação espontânea do executado para contra-atacar o ato expropriatório.
+    </div>
+    <p>A relevância estratégica dessa conduta reside na contagem do prazo prescricional: caso a defesa consiga manter a marcha do processo sem que ocorra nenhuma constrição patrimonial de fato proveitosa à cooperativa até junho de 2028, restará consumado o lapso temporal para decretação da prescrição intercorrente, extinguindo definitivamente a cobrança judicial por inércia do credor em localizar bens aptos à satisfação do crédito.</p>
+    <p>Dado o longo histórico de buscas frustradas pela cooperativa e a ausência de benefícios financeiros auferidos na execução até o momento, este processo se posiciona como um forte candidato para celebração de acordo com desconto substancial sobre o saldo histórico.</p>
+
+    <h3>Prazos de Impulso e Ausência de Habilitação Estratégica (Finais 8366 e 7647)</h3>
+    <ul>
+        <li><strong>Execução Sicoob (Final 8366):</strong> Proposta em 16/01/2023 com valor originário de R$ 243.787,95 e valor atualizado defasado de R$ 331.120,77, a lide esteve paralisada por aproximadamente dois anos em debates recursais infrutíferos sobre a penhora no rosto dos autos (decorrente de créditos pendentes que os executados possuiriam em outra demanda). Diante do trânsito em julgado do agravo e da infrutífera tentativa de Sisbajud em 2024, o juiz abriu prazo derradeiro para o Sicoob promover o andamento do processo sob pena de extinção por abandono ou suspensão, com vencimento em 11/06/2026. Recomenda-se aferir nos sistemas do tribunal se houve manifestação em tempo ou se decorreu o prazo em branco, hipótese que ensejará o pedido defensivo de suspensão dos autos.</li>
+        <li><strong>Monitória Unicred (Final 7647):</strong> Ajuizada em 23/10/2024 com valor de causa de R$ 69.931,86, teve mandado de citação expedido por oficial de justiça que retornou com resultado negativo em 27 de março de 2026. Em consonância com a blindagem estratégica do grupo econômico, a assessoria jurídica não realizou nenhuma manifestação de habilitação espontânea, forçando o credor a suportar o ônus processual de novas pesquisas de endereços e custas cartorárias para repetição do mandado citatório.</li>
+    </ul>
+
+    <h3>Execução de Acordo Amigável sob Controle (Final 5116)</h3>
+    <p>O único processo considerado resolvido e em fase segura de encerramento é a monitória movida pela Unicred sob o nº 5005116-87.2023.8.21.0048 (valor de R$ 2.600,86 com valor atualizado de R$ 3.746,39). O feito encontra-se na fase de quitação parcelada da condenação judicial acordada. Restam duas parcelas pendentes para a quitação total da avença, sendo de relevância crítica o depósito regular da parcela de junho de 2026 para elidir a incidência de qualquer cláusula penal por atraso.</p>
+
+    <h2>Plano Diretor de Gestão de Riscos e Tomada de Decisões</h2>
+    <p>As recomendações e priorizações de conduta defensiva de curto, médio e longo prazo foram segmentadas em um cronograma operacional para assegurar a blindagem de caixa das empresas operacionais e gerir a sucessão de bens decorrente dos óbitos identificados.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Janela Temporal</th>
+                <th>Processo / Foco de Atuação</th>
+                <th>Providência Técnica Recomendada</th>
+                <th>Objetivo Estratégico Almejado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Imediato</strong><br>(Até 15 dias)</td>
+                <td>Monitória Unicred<br>(Final 5116)</td>
+                <td>Realizar o depósito da parcela remanescente referente a junho de 2026.</td>
+                <td>Impedir a incidência de cláusula penal e rescisão do acordo homologado.</td>
+            </tr>
+            <tr>
+                <td><strong>Imediato</strong><br>(Até 15 dias)</td>
+                <td>Monitória Unicred<br>(Final 6850)</td>
+                <td>Protocolar manifestação defensiva robusta contra o pedido de penhora de faturamento da Poop Store.</td>
+                <td>Sustentar o princípio da preservação da empresa e violação ao Art. 805 do CPC.</td>
+            </tr>
+            <tr>
+                <td><strong>Curto Prazo</strong><br>(Até 45 dias)</td>
+                <td>Execução Sicoob<br>(Final 0966)</td>
+                <td>Analisar documentalmente o ato de consolidação da loja de Irene ocorrida em 31/07/2024 e propor EPE.</td>
+                <td>Obter a extinção da execução em relação à coexecutada Irene.</td>
+            </tr>
+            <tr>
+                <td><strong>Curto Prazo</strong><br>(Até 45 dias)</td>
+                <td>Execução Sicoob<br>(Final 0973)</td>
+                <td>Promover incidente de EPE arguindo a iliquidez material do contrato menor de giro (~R$ 30 mil).</td>
+                <td>Cindir a cobrança e extinguir parte expressiva do passivo sem necessidade de garantia.</td>
+            </tr>
+            <tr>
+                <td><strong>Curto Prazo</strong><br>(Até 45 dias)</td>
+                <td>Execução Cresol<br>(Final 2854)</td>
+                <td>Providenciar a juntada da certidão de óbito de Marcial e regularizar o andamento dos Embargos à Execução.</td>
+                <td>Retomar a discussão de iliquidez e abusividade do indexador CDI.</td>
+            </tr>
+            <tr>
+                <td><strong>Médio Prazo</strong><br>(Até 90 dias)</td>
+                <td>Todos os feitos com óbitos<br>(Sicoob e Unicred)</td>
+                <td>Levantar cartorariamente a abertura de inventários de Luiz e Marcial e mapear os bens existentes.</td>
+                <td>Blindar bens pessoais dos herdeiros e impedir penhoras indiretas irregulares.</td>
+            </tr>
+            <tr>
+                <td><strong>Longo Prazo</strong><br>(Até 2028)</td>
+                <td>Execução Rafael<br>(Final 4279)</td>
+                <td>Manter a ausência de habilitação voluntária até retorno positivo da precatória.</td>
+                <td>Consumar a prescrição intercorrente e viabilizar acordo com desconto drástico.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
